@@ -19,3 +19,38 @@ That's a nice alternative for `/var/lib/docker`.
 
 The python script is only here for orchestration and plotting.
 The real benchmarking work is based on the excellent [fio](https://fio.readthedocs.io/en/latest/).
+
+## usage
+
+Run with:
+
+> ./bench
+
+If it's the first time, it will install apt and python dependencies.
+See the file itself for details.
+It's only tested with ubuntu 20.04.
+
+There are only 2 subcommands: `run`, and `summary`.
+
+First setup all the filesystems you want to test.
+If you want to test some stripped raids, just setup a small logical volume with `lvm` for every configuration you want to test.
+Ultimately, you need a writable location for every configuration you want to test.
+
+Note: We test the filesystem, not the block device.
+That means it also tests the filesystem type you chose,
+not just the pure block device speed.
+
+Then for every filesystem to test, run something like
+
+> ./bench run --basefolder=./runs --name=disk-xyz-with-raid --testfile=~/test-lvs/some-raid --repeat=3
+
+Name can be chose arbitrarily.
+The testfile needs to be on the filesystem to be tested.
+
+Whenever you want to see plots, run
+
+> ./bench summary
+ 
+It will put `plots.png` by default in `./runs`.
+If you want to make different plots, look at `bench.py:summary`.
+Plotting is based on panda `DataFrame`'s and `seaborn`.
