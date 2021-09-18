@@ -68,6 +68,7 @@ def summary(basefolder):
 
     stats = Stats.from_runs(basefolder)
     df = pd.DataFrame(stats)
+    df = df.rename(columns={"speed": "speed [mb/s]"})
 
     sns.set_theme("paper", palette="colorblind")
     sns.catplot(
@@ -76,7 +77,7 @@ def summary(basefolder):
         col="pattern",
         hue="operation",
         x="name",
-        y="speed",
+        y="speed [mb/s]",
         legend=True,
         legend_out=True,
     )
