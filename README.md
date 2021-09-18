@@ -12,9 +12,9 @@ This way it wont use up your main disk space, or at least it's bounded.
 If you use `lvm` then you can setup things quite flexibly.
 The docker cache can still sit on the same physical disk, but at least on a different logical volume.
 
-With `lvm` it's also super easy to make a logical volume that is a stripped raid on some of your SSD's.
+With `lvm` it's also super easy to make a logical volume that is a striped raid on some of your SSD's.
 That might be a good candidate for the docker cache.
-Based on my tests, a few "aging" SSD's in a 4-way stripped raid can keep up with a very modern SSD.
+Based on my tests, a few "aging" SSD's in a 4-way striped raid can keep up with a very modern SSD.
 That's a nice alternative for `/var/lib/docker`.
 
 The python script is only here for orchestration and plotting.
@@ -33,7 +33,7 @@ It's only tested with ubuntu 20.04.
 There are only 2 subcommands: `run`, and `summary`.
 
 First setup all the filesystems you want to test.
-If you want to test some stripped raids, just setup a small logical volume with `lvm` for every configuration you want to test.
+If you want to test some striped raids, just setup a small logical volume with `lvm` for every configuration you want to test.
 Ultimately, you need a writable location for every configuration you want to test.
 
 Note: We test the filesystem, not the block device.
