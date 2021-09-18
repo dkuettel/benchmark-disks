@@ -1,0 +1,25 @@
+#!/bin/zsh
+set -eu -o pipefail
+
+base=${0:a:h}
+venv=$base/.venv
+
+if [[ -v VIRTUAL_ENV ]]; then
+    echo 'Dont run me inside a virtual env. Ill use my own.' >&2
+    exit 1
+fi
+
+if [[ ! -d $venv ]]; then
+    echo 'No virtual env found. Will create a new one. This will happen only once.' >&2
+    virtualenv --python python3.9 $venv
+    export VIRTUAL_ENV=$venv
+    path=($venv/bin $path)
+    pip install --upgrade pip pip-tools
+    pip-sync
+    echo 'New virtual env created. This will happen only once.' >&2
+else
+    export VIRTUAL_ENV=$venv
+    path=($venv/bin $path)
+fi
+
+python bench.py
