@@ -87,7 +87,11 @@ def summary(basefolder):
 @cli.command()
 @click.option("--basefolder", default="./runs")
 @click.option("--name", default="debug")
-@click.option("--testfile", default="./disk-test-file")
+@click.option(
+    "--testfile",
+    default="./disk-test-file",
+    help="The testfile has to be on the filesystem you want to benchmark. It needs to be writeable by you.",
+)
 @click.option("--repeat", default=1)
 def run(basefolder, name, testfile, repeat):
 
