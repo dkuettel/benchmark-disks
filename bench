@@ -10,14 +10,24 @@ if [[ -v VIRTUAL_ENV ]]; then
 fi
 
 if [[ ! -d $venv ]]; then
+
     echo 'No virtual env found. Will create a new one. This will happen only once.' >&2
+
+    if ! which python3.9 virtualenv fio; then
+        sudo apt-get install python3.9 python3-venv fio
+    fi
+
     virtualenv --python python3.9 $venv
+
     export VIRTUAL_ENV=$venv
     path=($venv/bin $path)
     pip install --upgrade pip pip-tools
     pip-sync
+
     echo 'New virtual env created. This will happen only once.' >&2
+
 else
+
     export VIRTUAL_ENV=$venv
     path=($venv/bin $path)
 fi
