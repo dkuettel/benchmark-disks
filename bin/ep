@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+set -eu -o pipefail
+
+cd ${0:a:h:h}
+
+# TODO not quite right, it leaks stuff from uv, do we want that?
+uv run -- es
