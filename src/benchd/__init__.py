@@ -162,7 +162,3 @@ def run_fio(testfile, resultsfile, description):
 
     finally:
         testfile.unlink(missing_ok=True)
-
-
-if __name__ == "__main__":
-    cli()
